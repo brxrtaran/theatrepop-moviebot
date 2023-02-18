@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 
 
 url_list = {}
-api_key = "3dhc2JfcYWZT9zpNA9YztHcw0jt1"
+$shareus_token = "3dhc2JfcYWZT9zpNA9YztHcw0jt1";
+      $link_to_short = "LINK_TO_SHORTEN"
+      $shareus_response = file_get_contente("https://api.shareus.in/shortLink?token={$shareus_token}&link={$link_to_short}")
 
 
 def search_movies(query):
@@ -32,7 +34,14 @@ def get_movie(query):
         links = movie_page_link.find_all("a", {'rel': 'noopener', 'data-wpel-link': 'internal'})
         final_links = {}
         for i in links:
-            url = f"https://shareus.io/shortLink?token={api_key}&link={i['href']}"
+const token = "YOUR_SHAREUS_API_TOKEN" 
+         const link = "LINK_TO_SHORTEN"
+         const http = new XMLHttpRequest()
+         http.open("GET", "https://api.shareus.in/shortLink?token={$shareus_token}&link={$link_to_short}")
+         http.send()
+         http.onload = () =>{ 
+         console.log(http.responseText)             
+                      }
             response = requests.get(url)
             link = response.json()
             final_links[f"{i.text}"] = link['shortenedUrl']
