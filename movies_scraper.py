@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 
 
-$link_to_short = {}
-$shareus_token = "3dhc2JfcYWZT9zpNA9YztHcw0jt1"
+url_list = {}
+api_key = "3dhc2JfcYWZT9zpNA9YztHcw0jt1"
 
 
 def search_movies(query):
@@ -32,9 +32,9 @@ def get_movie(query):
         links = movie_page_link.find_all("a", {'rel': 'noopener', 'data-wpel-link': 'internal'})
         final_links = {}
         for i in links:
-            url = f"https://api.shareus.in/shortLink?token=3dhc2JfcYWZT9zpNA9YztHcw0jt1&link=mylink.com"
+            url = f"https://shareus.io/shortLink?token={api_key}&link={i['href']}"
             response = requests.get(url)
-            link = file_get_contente(“https://api.shareus.in/shortLink?token={$shareus_token}&link={$link_to_short}”)
+            link = response.json()
             final_links[f"{i.text}"] = link['shortenedUrl']
         movie_details["links"] = final_links
     return movie_details
